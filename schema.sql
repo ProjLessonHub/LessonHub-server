@@ -36,23 +36,23 @@ CREATE TYPE cat_type AS ENUM (
 );
 
 CREATE TABLE IF NOT EXISTS "lesson" (
-  id            bigserial        PRIMARY KEY CHECK (id > 0),
-  title 	    varchar		     NOT NULL,
-  "description"	varchar          NOT NULL,
-  category		cat_type	     NOT NULL,
-  grade         grade_type       NULL,
-  notes		    text			 NULL,
+  id            bigserial      PRIMARY KEY CHECK (id > 0),
+  title 	      varchar		     NOT NULL,
+  "description"	varchar        NOT NULL,
+  category	  	cat_type	     NOT NULL,
+  grade         grade_type     NULL,
+  notes		      text			     NULL,
   author_id   	bigint		     NOT NULL,
-  created_at    timestamp        DEFAULT now(),
+  created_at    timestamp      DEFAULT now(),
 	
   FOREIGN KEY (author_id) REFERENCES "user"(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS item (
-  id            bigserial        PRIMARY KEY CHECK (id > 0),
-  lesson_id     bigserial        NOT NULL,
-  "name" 	      varchar	     NULL,
-  "file"	    	bytea		 NOT NULL,
+  id            bigserial      PRIMARY KEY CHECK (id > 0),
+  lesson_id     bigserial      NOT NULL,
+  "name" 	      varchar	       NULL,
+  "file"	    	bytea	         NOT NULL,
 	
   FOREIGN KEY (lesson_id) REFERENCES "lesson"(id) ON DELETE CASCADE
 );
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS rating (
   id            bigserial        PRIMARY KEY CHECK (id > 0),
   lesson_id     bigserial        NOT NULL,
   author_id     bigserial        NOT NULL,
-  rate 			int  			 NOT NULL,
-  comment		text			 NOT NULL,
+  rate 		    	int  			       NOT NULL,
+  comment	    	text			       NOT NULL,
 	
   FOREIGN KEY (lesson_id) REFERENCES "lesson"(id) ON DELETE CASCADE,
   FOREIGN KEY (author_id) REFERENCES "user"(id) ON DELETE CASCADE,
